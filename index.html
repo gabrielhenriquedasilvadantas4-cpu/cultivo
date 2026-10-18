@@ -323,7 +323,36 @@ syBadge=function(k){
   .nv.on{box-shadow:inset 0 3px 0 var(--g)}
   main{padding-bottom:120px}
 }
+</style><style>
+#topb{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:6;display:flex;gap:8px}
+.tb{position:relative;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);padding:0}
+.tb i{position:absolute;top:-3px;right:-3px;width:13px;height:13px;border-radius:50%;border:2px solid var(--bg)}
+.tb.w1{color:var(--y);border-color:var(--y)}.tb.w1 i{background:var(--y)}
+.tb.w2{color:var(--r);border-color:var(--r)}.tb.w2 i{background:var(--r);animation:pl 1.2s infinite}
+@keyframes pl{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
+main{padding-top:64px}
 </style>
+<script>
+IC.dl='<path d="M1.5 2 4v11M710.5L12 15l4.5-4.5M5 20h14"/>';
+renderNav=function(){
+  $('#nav').innerHTML='<div class="logo">'+ic('leaf')+'Cultivo</div>'+
+  [['cal','cal'],['tasks','list'],['goals','target'],['focus','leaf'],['stats','chart'],['ai','spark'],['me','user']]
+  .map(function(a){var v=a[0],i=a[1];return '<button class="nv '+(U.view===v?'on':'')+'" onclick="U.view=\''+v+'\';render()" title="'+TITLES[v]+'">'+ic(i)+'<span>'+TITLES[v]+'</span></button>'}).join('');
+};
+function bkState(){var d=S.lastExp?(Date.now()-S.lastExp)/864e5:99;return d>=7?2:d>=5?1:0}
+function topBtns(){
+  var el=document.getElementById('topb');
+  if(!el){el=document.createElement('div');el.id='topb';document.body.appendChild(el)}
+  var s=bkState();
+  var tip=s==2?'Backup atrasado! Toque para fazer agora':s==1?'O prazo do backup está acabando, toque para fazer':'Backup em dia';
+  el.innerHTML='<button class="tb'+(s?' w'+s:'')+'" title="'+tip+'" onclick="exportBak()">'+ic('dl')+(s?'<i></i>':'')+'</button><button class="tb" title="Alternar tema claro/escuro" onclick="toggleTheme()">'+ic('sun')+'</button>';
+}
+var _render=render;render=function(){_render();topBtns()};
+var _save=save;save=function(){_save();topBtns()};
+setInterval(topBtns,60000);
+render();
+if(bkState()>0)toast('⚠ Faça seu backup para não perder seus dados');
+</script>
 </style>
 
 </body></html>
