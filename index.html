@@ -303,6 +303,26 @@ async function initSync(){try{
 initSync();
 render();
 </script>
-
+<script>
+syBadge=function(k){
+  var b=document.getElementById('syb');
+  if(!b){
+    b=document.createElement('div');b.id='syb';
+    b.style.cssText='position:fixed;left:10px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:5;font-size:11px;padding:3px 9px;border-radius:99px;background:var(--card);color:var(--mu);border:1px solid var(--line);opacity:.9;pointer-events:none';
+    document.body.appendChild(b);
+  }
+  b.textContent={err:'⚠ Sem sincronia (salvo aqui)',big:'⚠ Dados grandes demais para a nuvem'}[k]||'';
+  b.style.display=(k==='err'||k==='big')?'':'none';
+};
+</script>
+<style>
+@media(max-width:760px){
+  aside{padding:10px 6px calc(12px + env(safe-area-inset-bottom,0px));min-height:72px;align-items:center}
+  .nv{padding:14px 16px;border-radius:14px}
+  .nv svg.i{width:26px;height:26px}
+  .nv.on{box-shadow:inset 0 3px 0 var(--g)}
+  main{padding-bottom:130px}
+}
+</style>
 
 </body></html>
