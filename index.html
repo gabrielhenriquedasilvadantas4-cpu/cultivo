@@ -313,7 +313,7 @@ syBadge=function(k){
   }
   b.textContent={err:'⚠ Sem sincronia (salvo aqui)',big:'⚠ Dados grandes demais para a nuvem'}[k]||'';
   b.style.display=(k==='err'||k==='big')?'':'none';
-};
+};syBadge('local');
 </script>
 <style>
 @media(max-width:760px){
